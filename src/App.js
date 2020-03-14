@@ -1,22 +1,25 @@
 import React from 'react';
 import './App.css';
 
-// import { ApolloProvider } from 'react-apollo'
-// import ApolloClient from 'apollo-boost'
+import { ApolloProvider } from 'react-apollo'
+import ApolloClient from 'apollo-boost'
 
-import GetDataFromAPI from './caracters'
+// component that works with axios/async/try&catch
+// import GetDataFromAPI from './caracters'
 
-// const client = new ApolloClient ({
-//   uri: 'https://swapi.co/api' 
-// });
+import GraphQL from './caracters_graphql'
+
+const client = new ApolloClient ({
+  uri: 'https://swapi.co/api/people/' 
+});
 
 const App = () => (
-    // <ApolloProvider client={client} >
-    //   <Caracters/>
-    // </ApolloProvider>
-  <div>
-    <GetDataFromAPI/>
-  </div>
+    <ApolloProvider client={client} >
+      <GraphQL/>
+    </ApolloProvider>
+  // <div>
+  //   <GetDataFromAPI/>
+  // </div>
 )
 
 export default App;
