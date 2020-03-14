@@ -7,30 +7,21 @@ import axios from 'axios'
 const Caracters = () => {
 
 
-    const [dataFromAPI, setDataFromAPI] = useState({
-        name: '',
-        heigth: '',
-        hair_color: '',
-    })
+    const [dataFromAPI, setDataFromAPI] = useState([])
 
     const [dataFound, setDataFound] = useState(false)
 
     useEffect(() =>{
 
         GetDataFromAPI()
-    }, [dataFound])
+    },[dataFound])
 
     const GetDataFromAPI = async () => {
-        // let caracterID = idx
 
         try {
-            const findData = await axios.get('https://swapi.co/api/people/5/')
-            
-            setDataFromAPI({
-                name: findData.data.name,
-                heigth: findData.data.heigth,
-                hair_color: findData.data.hair_color,
-            })
+            const findData = await axios.get('https://swapi.co/api/people/')
+            console.log('findData =>', findData)
+            setDataFromAPI(findData.data.results)
             setDataFound(true)
             
         }catch(error){
@@ -38,13 +29,13 @@ const Caracters = () => {
         }
     console.log('dataFromAPI after Try', dataFromAPI)
     
-}
-    return (
-        <div>
-            <h3>Hello there</h3>
-        </div>
-    )
+    }
 
+    return dataFromAPI.map(({name, height}, idx) =>(
+           <div key={idx}>
+                <p>{`${name}, ${height}`}</p>
+            </div>
+    ))
 
 }
     export default Caracters
